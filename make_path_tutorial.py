@@ -26,6 +26,10 @@ if not os.path.exists(new_folder_path):
 
 # 获得当前文件夹内的文件夹数量，用于命名方便
 pwd = os.getcwd()
+# 当前文件夹的上一级目录
+father_path = os.path.abspath(os.path.dirname(pwd)+os.path.sep+".")
+
+
 target_folder_dir = pwd
 folder_list = scanfile(target_folder_dir)
 folder_num = len(folder_list)
