@@ -17,8 +17,8 @@ $ tmux attach -t 0  重新连接会话，使用伪窗口编号
 $ tmux attach -t xiaoqi 重新链接会话，使用伪窗口名称
 
 杀死会话： 想要彻底杀死会话，不要再让它执行
-$ tmux kill -session -t 0
-$ tmux kill -session -t <name>
+$ tmux kill-session -t 0
+$ tmux kill-session -t <name>
 
 切换会话：
 $ tmux switch -t 0
@@ -33,3 +33,24 @@ $ tmux list-keys
 $ tmux list-commonds
 $ tmux info
 
+跳转到下一个窗口：
+Ctrl +b 再 n
+
+跳转到上一个窗口：
+Ctrl +b 再 p 
+
+新建其他窗口：
+Ctrl +b 再 c 
+
+跳转到指定窗口：
+Ctrl +b 再 ； （分号）
+出现index界面后输入bash号 
+
+左右分屏：
+Ctrl +b 再 shift + %
+
+上下分屏：
+Ctrl +b 再 shift + ;
+
+分屏跳转：
+Ctrl +b 再 上下左右方向键
