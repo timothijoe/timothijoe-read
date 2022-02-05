@@ -23,3 +23,14 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 import torch
 torch.cuda.set_device(id)
 该函数见 pytorch-master\torch\cuda\__init__.py
+
+
+
+文件传输（暂时）：
+临时解决方案为transfer.sh，它是一个免费的命令行界面的云盘，使用方式为
+
+curl --upload-file ./my.zip https://transfer.sh/my.zip
+
+然后它会返回一个独有的link，wget下载即可
+
+
