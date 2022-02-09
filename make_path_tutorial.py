@@ -72,3 +72,20 @@ x = os.path.basename(filePATH)
 去后缀：
 os.path.splitext(x)[0]
  则分离文件名字和扩展名；返回默认(fname, fextension)元组，若[1]则返回后缀
+
+pickle文件的存储和读取：
+存储：
+
+pkl_name = folder_name + pkl_name 
+with open(pkl_name, "wb") as fp:
+    pickle.dump(traj_dict, fp)
+    
+traj_file_list = []
+TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/'
+for cur_file in os.listdir(TRAJ_LIBRARY_PATH):
+    cur_traj = os.path.join(TRAJ_LIBRARY_PATH, cur_file)
+    traj_file_list.append(cur_traj)
+读取：
+pkl_name = traj_file_list[0]
+with open(pkl_name, 'rb') as file:
+    traj_mat = pickle.load(file)
