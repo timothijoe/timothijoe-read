@@ -70,5 +70,5 @@ x = os.path.basename(filePATH)
 
 ' x = hello.txt'
 去后缀：
-os.path.splittext(x)[0]
+os.path.splitext(x)[0]
  则分离文件名字和扩展名；返回默认(fname, fextension)元组，若[1]则返回后缀
