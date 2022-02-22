@@ -32,4 +32,22 @@ curl --upload-file ./my.zip https://transfer.sh/my.zip
 然后它会返回一个独有的link，wget下载即可
 wget --no-check-certificate
 
+安装linux cuda = 11.3 pip install的pytorch
+pip3 install torch==1.10.2+cu113 torchvision==0.11.3+cu113 torchaudio==0.10.2+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
 
+proxy下载github
+git clone https://ghproxy.com/https://github.com/timothijoe/DI-drive.git
+
+
+判断cuda是否安装好
+import torch
+torch.cuda.is_available()
+>>> True
+torch.cuda.current_device()
+>>> 0
+torch.cuda.device(0)
+>>> <torch.cuda.device at 0x7efce0b03be0>
+torch.cuda.device_count()
+>>> 1
+torch.cuda.get_device_name(0)
+>>> 'GeForce GTX 950M'
