@@ -38,6 +38,11 @@ pip3 install torch==1.10.2+cu113 torchvision==0.11.3+cu113 torchaudio==0.10.2+cu
 proxy下载github
 git clone https://ghproxy.com/https://github.com/timothijoe/DI-drive.git
 
+DI engine暂定使用版本：
+可以通过 git log来查看版本
+git checkout 4b23ce399be3c44db18420d59a78674bc564c894
+
+
 G00dAi2021_!
 
 判断cuda是否安装好
