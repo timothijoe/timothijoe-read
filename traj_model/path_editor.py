@@ -147,7 +147,7 @@ if mode == 'save':
     path_id = 0
     #degree_list = [60,50,40,30,20,10,0,-10,-20,-30,-40,-50,-60]
     #degree_list = [30,15,0,-15,-30]
-    degree_list = [10, 5 ,0,-5. -10]
+    degree_list = [10, 5 ,0,-5, -10]
     #degree_list = [0]
     for degree in degree_list:
         print('preparing degree {}'.format(degree))

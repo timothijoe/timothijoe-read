@@ -42,9 +42,9 @@
            value: "1" 
          resources:
            requests:
-             nvidia.com/gpu: 1
-             cpu: 10
-             memory: "20Gi"
+             nvidia.com/gpu: 0
+             cpu: 20
+             memory: "30Gi"
            limits:
              nvidia.com/gpu: 1
              cpu: 60
@@ -53,8 +53,6 @@
          args:
          - |
            cd /mnt/nfs/zhoutong/lattern/DI-engine
-           pip install -e .
-           cd /mnt/nfs/zhoutong/lattern/xad
            pip install -e .
            cd /mnt/nfs/zhoutong/lattern/timothy_vae/
            python3 -u /mnt/nfs/zhoutong/lattern/timothy_vae/traj_model/traj_editor.py
