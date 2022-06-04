@@ -31,13 +31,14 @@ scale_len = 1 / meta_len
 #TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/vae_trajectory/data/test_origin_folder/'
 #TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/vae_trajectory/data/standard_traj_matfiles/'
 #TRAJ_LIBRARY_PATH = pwd + '/dataset/eval'
-TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/drive_project/ckpt/may10/ckpt'
-TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/Trajectory_VAE/dataset/downsample_len20'
-TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/Trajectory_VAE/dataset/may30'
+# TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/drive_project/ckpt/may10/ckpt'
+# TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/Trajectory_VAE/dataset/downsample_len20'
+# TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/Trajectory_VAE/dataset/may30'
 # TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/variate_len_vae/dataset/eval10'
 # if not os.path.exists(TRAJ_LIBRARY_PATH_STANDARD):
 #     os.makedirs(TRAJ_LIBRARY_PATH_STANDARD)
-TARGET_LIBRARY_PATH = pwd + '/dataset/prune_len20/'
+TRAJ_LIBRARY_PATH = pwd + '/dataset/traj_lib'
+TARGET_LIBRARY_PATH = pwd + '/dataset/pruned_traj/'
 
 for cur_file in os.listdir(TRAJ_LIBRARY_PATH):
     cur_traj = os.path.join(TRAJ_LIBRARY_PATH, cur_file)
@@ -72,7 +73,7 @@ for traj_file in traj_file_list:
         traj2_library[library_key]['trajectory'] = value['trajectory']
         traj2_library[library_key]['traj_mask'] = traj_mask
 
-pkl_name = 'may30_vae_prune_20.pickle'
+pkl_name = 'june04_vae_prune_20.pickle'
 pkl_name = TARGET_LIBRARY_PATH + pkl_name
 with open(pkl_name, "wb") as fp:
     pickle.dump(traj2_library, fp)

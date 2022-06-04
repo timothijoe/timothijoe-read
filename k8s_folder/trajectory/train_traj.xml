@@ -43,7 +43,7 @@
          resources:
            requests:
              nvidia.com/gpu: 1
-             cpu: 10
+             cpu: 30
              memory: "50Gi"
            limits:
              nvidia.com/gpu: 1

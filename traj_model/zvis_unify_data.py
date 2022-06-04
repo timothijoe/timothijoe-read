@@ -30,7 +30,7 @@ scale_len = 1 / meta_len
 
 #TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/vae_trajectory/data/test_origin_folder/'
 #TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/vae_trajectory/data/standard_traj_matfiles/'
-TRAJ_LIBRARY_PATH = pwd + '/dataset/prune_len20'
+TRAJ_LIBRARY_PATH = pwd + '/dataset/traj_lib/len20'
 # TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/drive_project/ckpt/may10/ckpt'
 # TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/variate_len_vae/dataset/eval10'
 # if not os.path.exists(TRAJ_LIBRARY_PATH_STANDARD):

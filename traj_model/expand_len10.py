@@ -27,15 +27,8 @@ scale_vel = 1 / meta_vel
 scale_len = 1 / meta_len
 
 # diction keys order: end_x, end_y, end_theta, start_vel, end_v, total_len
-
-#TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/vae_trajectory/data/test_origin_folder/'
-#TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/vae_trajectory/data/standard_traj_matfiles/'
-#TRAJ_LIBRARY_PATH = pwd + '/dataset/eval'
-TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/variate_len_vae/dataset/eval10'
-# TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/variate_len_vae/dataset/eval10'
-# if not os.path.exists(TRAJ_LIBRARY_PATH_STANDARD):
-#     os.makedirs(TRAJ_LIBRARY_PATH_STANDARD)
-TARGET_LIBRARY_PATH = pwd + '/dataset/prune_len20/'
+TRAJ_LIBRARY_PATH = pwd + '/dataset/traj_lib/len_10'
+TARGET_LIBRARY_PATH = pwd + '/dataset/pruned_traj/'
 
 for cur_file in os.listdir(TRAJ_LIBRARY_PATH):
     cur_traj = os.path.join(TRAJ_LIBRARY_PATH, cur_file)

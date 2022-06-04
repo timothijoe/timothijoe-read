@@ -11,9 +11,9 @@ import pickle
 import matplotlib.pyplot as plt
 ''' data '''
 
-SOURCE_TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/MP_VAE/data/latent_traj_files/'
+SOURCE_TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/Trajectory_VAE/data/latent_traj_files/'
 #TARGET_TRAJ_LIBRARY_PATH = '/home/SENSETIME/zhoutong/hoffnung/vae_trajectory/data/target_picture_folder/'
-TARGET_DISTRIBUTION_FOLDER = '/home/SENSETIME/zhoutong/hoffnung/MP_VAE/result/latent_distribution_folder/'
+TARGET_DISTRIBUTION_FOLDER = '/home/SENSETIME/zhoutong/hoffnung/Trajectory_VAE/result/latent_distribution_folder/'
 
 z_max = 1.0
 z_min = -1.0
@@ -30,16 +30,16 @@ ax2 = fig.add_subplot(212, projection='3d')
 
 ax1.set_xlabel('z0')
 ax1.set_ylabel('z1')
-ax1.set_zlabel('vel / 10')
+ax1.set_zlabel('z2')
 ax1.set_xlim((-1.1,1.1))
 ax1.set_ylim((-1.1,1.1))
-ax1.set_zlim((-0.1,1.1))
+ax1.set_zlim((-1.1,1.1))
 ax2.set_xlabel('x')
 ax2.set_ylabel('y')
 ax2.set_zlabel('theta')
-ax2.set_xlim((-1.1,11.1))
-ax2.set_ylim((-5.1,5.1))
-ax2.set_zlim((-2, 2))
+ax2.set_xlim((-1.1,21.1))
+ax2.set_ylim((-10.1,10.1))
+ax2.set_zlim((-45, 45))
 zt =0
 z0_list = []
 z1_list = []
@@ -74,15 +74,20 @@ for traj_file in traj_file_list:
         trajectory = value['trajectory']
         z0 = latent_variable[0]
         z1 = latent_variable[1]
-        #z2 = latent_variable[2]
-        z2 = vel / 10.0
-        r_value = (z0-z_min)/(z_max-z_min)
-        g_value = (z1-z_min)/(z_max-z_min)
+        z2 = latent_variable[2]
+        #z2 = vel / 10.0
+        #r_value = (z0-z_min)/(z_max-z_min)
+        # g_value = (z1-z_min)/(z_max-z_min)
         b_value = (z2-z_min)/(z_max-z_min)
+        r_value = (z1-z_min)/(z_max-z_min)
+        #r_value = 1.0 if value['class_label'] == 0 else 0.0
+        g_value = 1.0 if value['class_label']== 1 else 0.0
+        #b_value = 0.0 if value['class_label'] == 0 else 1.0
         z_color = (r_value, g_value, b_value)
-        x = trajectory[-1, 0]
-        y = trajectory[-1, 1]
-        theta = trajectory[-1,2] 
+        x = trajectory[-1, 0] if value['class_label']== 1 else trajectory[10, 0]
+        y = trajectory[-1, 1] if value['class_label']== 1 else trajectory[10, 1]
+        theta = trajectory[-1,2] if value['class_label']== 1 else trajectory[10, 2]
+        theta = theta * 180 / np.pi 
         z0_list.append(z0)
         z1_list.append(z1)
         z2_list.append(z2)

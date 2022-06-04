@@ -150,7 +150,6 @@ class VaeDecoder(nn.Module):
         seq_len = 30,
         use_relative_pos = True,
         dt = 0.03,
-        one_side_class_vae = False,
         ):
         super(VaeDecoder, self).__init__()
         self.embedding_dim = embedding_dim
@@ -167,12 +166,10 @@ class VaeDecoder(nn.Module):
         self.hidden2control = nn.Linear(self.h_dim, 2)
         self.decoder = nn.LSTM(self.embedding_dim, self.h_dim, self.num_layers)
         self.init_hidden_decoder = torch.nn.Linear(in_features = self.latent_dim, out_features = self.h_dim * self.num_layers)
-        self.one_side_class_vae = one_side_class_vae
         
         label_dims = [self.h_dim, self.h_dim, self.h_dim, self.label_dim]
         label_modules = []
-        #in_channels = 1 # self.latent_dim
-        in_channels = 1 if self.one_side_class_vae else self.latent_dim
+        in_channels = self.latent_dim
         for m_dim in label_dims:
             label_modules.append(
                 nn.Sequential(
@@ -212,10 +209,7 @@ class VaeDecoder(nn.Module):
     def decode(self, z, init_state):
         generated_traj = []
         prev_state = init_state 
-        if self.one_side_class_vae:
-            output_label = self.label_classification(z[:,:,:1])
-        else:
-            output_label = self.label_classification(z[:,:,:])
+        output_label = self.label_classification(z)
         #output_label = F.softmax(output_label, dim=2)
         # decoder_input shape: batch_size x 4
         decoder_input = self.spatial_embedding(prev_state)
@@ -250,7 +244,6 @@ class TrajVAE(nn.Module):
         dt = 0.03,
         kld_weight = 0.01,
         fde_weight = 0.1,
-        one_side_class_vae = True,
         ):
         super(TrajVAE, self).__init__()
         self.embedding_dim = embedding_dim
@@ -262,7 +255,6 @@ class TrajVAE(nn.Module):
         self.kld_weight = kld_weight
         self.fde_weight = fde_weight
         self.dt = dt
-        self.one_side_class_vae = one_side_class_vae
         self.vae_encoder = VaeEncoder(
             embedding_dim = self.embedding_dim,
             h_dim = self.h_dim,
@@ -277,8 +269,7 @@ class TrajVAE(nn.Module):
             latent_dim = self.latent_dim,
             seq_len = self.seq_len,
             use_relative_pos = self.use_relative_pos,
-            dt = self.dt,
-            one_side_class_vae = self.one_side_class_vae
+            dt = self.dt
         )
 
     def reparameterize(self, mu, logvar):
@@ -346,7 +337,6 @@ def create_model(params):
         latent_dim = params.latent_dim,
         seq_len = params.seq_len,
         dt = params.dt,
-        one_side_class_vae=params.one_side_class_vae,
     )
     
     model = model.float()

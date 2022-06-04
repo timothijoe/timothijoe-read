@@ -149,8 +149,8 @@ speed_delta = 1
 
 # max_speed = max_speed * 2
 # speed_delta = speed_delta * 2
-mode = 'save'
-#mode = 'draw'
+#mode = 'save'
+mode = 'draw'
 if mode == 'draw':
     speed_list_start = [i*speed_delta for i in range(int(max_speed/speed_delta) + 1)] #8
     # speed_list_start = [5] #8

@@ -57,12 +57,14 @@ def main():
     pwd = os.getcwd()
     # if need_restore_model:
     #     model, restored_epoch = restore_model(model, params, epoch=params.restore_epoch)
-    checkpoint = torch.load('/home/SENSETIME/zhoutong/hoffnung/MP_VAE/result/Feb18-seqlen-20/ckpt/79_ckpt')
+    # '/home/SENSETIME/zhoutong/hoffnung/Trajectory_VAE/result/June4th-2/ckpt/39_ckpt'
+    #'/media/SENSETIME\zhoutong/0f722133-20a0-47f2-8a02-a5db7f409c29/home/hoffung/variate_len_vae/result/May20th-5/ckpt/39_ckpt'
+    checkpoint = torch.load('/home/SENSETIME/zhoutong/hoffnung/Trajectory_VAE/result/June4th-2/ckpt/39_ckpt')
     model.load_state_dict(checkpoint)
 
     a = np.array([])
     device = torch.device('cuda')
-    LT_PATH = '/home/SENSETIME/zhoutong/hoffnung/MP_VAE/data/latent_traj_files/'
+    LT_PATH = '/home/SENSETIME/zhoutong/hoffnung/Trajectory_VAE/data/latent_traj_files/'
     for v in range(0, 10):
         name = 'vel_{}.pickle'.format(v)
         traj_dict = {}
@@ -78,22 +80,22 @@ def main():
             init_state_list = []
             for c_z1 in range(0, 21):
                 v_z1 = c_z1 * 0.1 - 1.0
-                latent_v = np.array([[v_z0, v_z1]])
-                latent_v = torch.from_numpy(latent_v)
-                z_list.append(latent_v)
-                init_state_cp = copy.deepcopy(init_state)
-                init_state_list.append(init_state_cp)
-                # for c_z2 in range(0, 21):
-                #     v_z2 = c_z2 * 0.1 - 1.0
-                #     latent_v = np.array([[v_z0, v_z1, v_z2 ]])
-                #     latent_v = torch.from_numpy(latent_v)
-                #     z_list.append(latent_v)
-                #     init_state_cp = copy.deepcopy(init_state)
-                #     init_state_list.append(init_state_cp)
+                #latent_v = np.array([[v_z0, v_z1]])
+                #latent_v = torch.from_numpy(latent_v)
+                #z_list.append(latent_v)
+                #init_state_cp = copy.deepcopy(init_state)
+                #init_state_list.append(init_state_cp)
+                for c_z2 in range(0, 21):
+                    v_z2 = c_z2 * 0.1 - 1.0
+                    latent_v = np.array([[v_z0, v_z1, v_z2 ]])
+                    latent_v = torch.from_numpy(latent_v)
+                    z_list.append(latent_v)
+                    init_state_cp = copy.deepcopy(init_state)
+                    init_state_list.append(init_state_cp)
                     
             z_batch = torch.stack(z_list, dim = 1).to(torch.float32).to(device)
             init_state_batch = torch.stack(init_state_list, dim=0).to(torch.float32).to(device)
-            construct_trajs = model.sample(z_batch, init_state_batch)
+            construct_trajs, output_labels = model.sample(z_batch, init_state_batch)
             construct_trajs = torch.cat([init_state_batch.unsqueeze(1), construct_trajs], dim = 1)
             traj_num = len(construct_trajs)
             for i in range(0,traj_num):
@@ -101,10 +103,13 @@ def main():
                 latent_variable = z_batch[0][i]
                 init_state = init_state_batch[i]
                 dict_key = str(len(traj_dict))
+                class_label = torch.argmax(output_labels[0][i])
+                class_label = class_label.data.cpu().numpy()
                 single_traj = {}
                 single_traj['latent_variable'] = latent_variable.data.cpu().numpy() 
                 single_traj['trajectory'] = traj.data.cpu().numpy() 
                 single_traj['init_vel'] = v
+                single_traj['class_label'] = class_label
                 #single_traj['init_state'] = init_state.data.cpu().numpy() 
                 traj_dict[dict_key] = single_traj
         print('init vel : {}'.format(v))
