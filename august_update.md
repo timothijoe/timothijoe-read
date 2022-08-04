@@ -17,3 +17,10 @@ ssh zhoutong@jump01.sh.sensetime.com
 [phx-sh38入口](https://phoenix.sensetime.com/p/c-fw7fc:p-dckzb/workloads)
 
 [phx-sh1024入口](https://phoenix.sensetime.com/p/c-pfjwt:p-t2t2t/workloads)
+
+
+tensorboard --logdir='log' --bind_all --port=20010
+
+cluster-proxy.sh.sensetime.com:20010
+
+cluster-proxy.sh.sensetime.com:19900-20199
