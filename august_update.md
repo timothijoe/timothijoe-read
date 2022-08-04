@@ -23,4 +23,6 @@ tensorboard --logdir='log' --bind_all --port=20010
 
 cluster-proxy.sh.sensetime.com:20010
 
+10.198.34.31:19900-20199
+
 cluster-proxy.sh.sensetime.com:19900-20199
