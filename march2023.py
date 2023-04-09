@@ -26,3 +26,11 @@ https://github.com/MCZhi/DIPP
 https://github.com/d1024choi/traj-pred-irl
 
 
+4. 点云相关
+
+3d地图转化为2d
+https://github.com/koide3/pointcloud_to_2dmap
+
+点云建图和定位
+https://github.com/TixiaoShan/LIO-SAM
+https://github.com/Gaochao-hit/LIO-SAM_based_relocalization
