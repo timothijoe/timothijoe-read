@@ -10,5 +10,10 @@ jinbo_nov21_branch: 用于ral当时的di-engine,可以使用它作为ral的复�
 metadrive:
 di_engine_branch : 用于开发后续的情况. 注意延续的是2023.2.10的官方Main分支
 
-
+metadrive -- use_render报错的原因之一:
+    
+geopandas                     0.10.2
+panda3d-gltf                  0.13            *****(尤其是这里)
+panda3d-simplepbr             0.10
+pandas                        1.3.5
  
