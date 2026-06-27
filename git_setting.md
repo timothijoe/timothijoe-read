@@ -16,7 +16,7 @@
 ls ~/.ssh
 ```
 
-如果看到 `id_ed25519` + `id_ed25519.pub`，说明已经有了，跳到第 4 步。没有就继续往下走。
+如果看到 `id_ed25519` + `id_ed25519.pub`，说明已经有了，跳到第 5 步。没有就继续往下走。
 
 #### 第 2 步：生成 SSH Key
 
@@ -52,7 +52,34 @@ ssh-add ~/.ssh/id_ed25519
 
 看到 `Identity added` 就说明成功了。
 
-#### 第 4 步：复制公钥
+#### 第 4 步（可选）：配置 SSH 走 443 端口
+
+有些网络环境（公司防火墙、学校网络）会封 22 端口，导致 `ssh -T git@github.com` 连不上。配置 SSH 走 443 端口即可绕过：
+
+```bash
+nano ~/.ssh/config
+```
+
+加入以下内容：
+
+```
+Host github.com
+  HostName ssh.github.com
+  Port 443
+  User git
+  IdentityFile ~/.ssh/id_ed25519
+  ProxyCommand nc -X connect -x 127.0.0.1:6789 %h %p
+```
+
+> 💡 **说明**：`ssh.github.com` 是 GitHub 专门为 443 端口提供的 SSH 端点。配置后所有 `git@github.com` 的连接会自动走 443 端口，无需改仓库地址。
+
+保存后测试：
+
+```bash
+ssh -T git@github.com
+```
+
+#### 第 5 步：复制公钥 🔑
 
 ```bash
 cat ~/.ssh/id_ed25519.pub
@@ -66,7 +93,7 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI...... 你的邮箱
 
 **把这一整串全部复制下来。**
 
-#### 第 5 步：在 GitHub 上添加 SSH Key
+#### 第 6 步：在 GitHub 上添加 SSH Key
 
 1. 登录 [GitHub](https://github.com)
 2. 右上角头像 → **Settings**
@@ -76,7 +103,7 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI...... 你的邮箱
 6. **Key**：粘贴刚才复制的那串公钥
 7. 点击 **Add SSH key** 保存
 
-#### 第 6 步：测试连接
+#### 第 7 步：测试连接
 
 ```bash
 ssh -T git@github.com
@@ -96,7 +123,7 @@ Hi xxx! You've successfully authenticated...
 
 说明 SSH 已配置成功 🎉
 
-#### 第 7 步：把仓库地址从 HTTPS 改成 SSH
+#### 第 8 步：把仓库地址从 HTTPS 改成 SSH
 
 很多人的仓库还是 HTTPS 地址，需要改成 SSH。
 
@@ -138,7 +165,7 @@ origin  git@github.com:xxx/xxx.git (fetch)
 origin  git@github.com:xxx/xxx.git (push)
 ```
 
-#### 第 8 步：推送
+#### 第 9 步：推送
 
 以后只需：
 
