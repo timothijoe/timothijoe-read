@@ -126,6 +126,9 @@ After installation:
 codex --version
 claude --version
 claude --dangerously-skip-permissions
+
+
+codex --sandbox danger-full-access
 ```
 
 ### fix-permissions.sh
